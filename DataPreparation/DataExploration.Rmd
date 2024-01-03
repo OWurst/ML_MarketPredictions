@@ -14,6 +14,7 @@ library(tidyverse)
 source("Data_Prep_Functions.r")
 ```
 
+#Data Preparation:
 ##Reading in Data:
 I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df.
 ```{r, create_df_list}
@@ -44,7 +45,45 @@ wmt_df <- prep_df_post_csv_read(wmt, "WMT", "Retail")
 stock_df_list <- c(appl_df, jnj_df, jpm_df, mrna_df, mtb_df, nvda_df, tgt_df, wmt_df)
 ```
 
-After that, we have a list of 8 dtaframes that look like this.
+After that, we have a list of 8 dataframes that look like this.
 ```{r, show_apple}
 head(appl_df)
 ```
+
+##Creating Individual Lines for Learning
+I am now going to create dataframes where each line represents an 8 month period of changes for every line that I can in these dateframes.
+
+```{r, create_learning_df}
+k_month_learning_df_from_adjusted <- function(df, k){
+  
+  i <- 0
+  while(i+k+1 < nrow(df)){
+    
+    
+    
+    i <- i+1
+  }
+  
+  colnames_adj_percent <- paste0("Adj_%_Change", 1:k)
+  colnames_percent <- paste0("%_Change", 1:k)
+  colnames_vol <- paste0("Volume", 1:k)
+  
+  adj_perc_df <- data.frame(matrix(NA, nrow = 1, ncol = k, dimnames = list(NULL, colnames_adj_percent)))
+  perc_df <- data.frame(matrix(NA, nrow = 1, ncol = k, dimnames = list(NULL, colnames_percent)))
+  vol_df <- data.frame(matrix(NA, nrow = 1, ncol = k, dimnames = list(NULL, colnames_vol)))
+  
+  const_columns <- data.frame(
+    Ticker = df$Ticker[1],
+    Industry = df$Industry[1]
+  )
+  
+  learning_df <- cbind(const_columns, adj_perc_df, perc_df, vol_df)
+  return(learning_df)
+}
+```
+
+
+```{r, appl_learning_df}
+k_month_learning_df_from_adjusted(tgt_df, 8)
+```
+
