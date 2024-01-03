@@ -1,3 +1,50 @@
-```{r, part1}
-print("hello")
+---
+title: "CS 2075 Spring 2023 Final Project: Part 3: Classification"
+author: "Owen Wurst"
+date: "Started January 3rd, 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, imports}
+library(tidyverse)
+source("Data_Prep_Functions.r")
+```
+
+##Reading in Data:
+I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df.
+```{r, create_df_list}
+apple <- readr::read_csv("Original_Datasets/YahooFinance/AAPL.csv", col_names = TRUE, show_col_types = FALSE)
+appl_df <- prep_df_post_csv_read(apple, "APPL", "Tech")
+
+jnj <- readr::read_csv("Original_Datasets/YahooFinance/JNJ.csv", col_names = TRUE, show_col_types = FALSE)
+jnj_df <- prep_df_post_csv_read(jnj, "JNJ", "Pharma")
+
+jpmorg <- readr::read_csv("Original_Datasets/YahooFinance/JPM.csv", col_names = TRUE, show_col_types = FALSE)
+jpm_df <- prep_df_post_csv_read(jpmorg, "JPM", "Banking")
+
+moderna <- readr::read_csv("Original_Datasets/YahooFinance/MRNA.csv", col_names = TRUE, show_col_types = FALSE)
+mrna_df <- prep_df_post_csv_read(moderna, "MRNA", "Pharma")
+
+mandt <- readr::read_csv("Original_Datasets/YahooFinance/MTB.csv", col_names = TRUE, show_col_types = FALSE)
+mtb_df <- prep_df_post_csv_read(mandt, "MTB", "Banking")
+
+nvidia <- readr::read_csv("Original_Datasets/YahooFinance/NVDA.csv", col_names = TRUE, show_col_types = FALSE)
+nvda_df <- prep_df_post_csv_read(nvidia, "NVDA", "Tech")
+
+target <- readr::read_csv("Original_Datasets/YahooFinance/JPM.csv", col_names = TRUE, show_col_types = FALSE)
+tgt_df <- prep_df_post_csv_read(target, "TGT", "Retail")
+
+wmt <- readr::read_csv("Original_Datasets/YahooFinance/WMT.csv", col_names = TRUE, show_col_types = FALSE)
+wmt_df <- prep_df_post_csv_read(wmt, "WMT", "Retail")
+
+stock_df_list <- c(appl_df, jnj_df, jpm_df, mrna_df, mtb_df, nvda_df, tgt_df, wmt_df)
+```
+
+After that, we have a list of 8 dtaframes that look like this.
+```{r, show_apple}
+head(appl_df)
 ```
