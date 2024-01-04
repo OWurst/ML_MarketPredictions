@@ -18,32 +18,48 @@ source("Data_Prep_Functions.r")
 ##Reading in Data:
 I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df.
 ```{r, create_df_list}
+#Tech
 apple <- readr::read_csv("Original_Datasets/YahooFinance/AAPL.csv", col_names = TRUE, show_col_types = FALSE)
 appl_df <- prep_df_post_csv_read(apple, "APPL", "Tech")
-
-jnj <- readr::read_csv("Original_Datasets/YahooFinance/JNJ.csv", col_names = TRUE, show_col_types = FALSE)
-jnj_df <- prep_df_post_csv_read(jnj, "JNJ", "Pharma")
-
-jpmorg <- readr::read_csv("Original_Datasets/YahooFinance/JPM.csv", col_names = TRUE, show_col_types = FALSE)
-jpm_df <- prep_df_post_csv_read(jpmorg, "JPM", "Banking")
-
-moderna <- readr::read_csv("Original_Datasets/YahooFinance/MRNA.csv", col_names = TRUE, show_col_types = FALSE)
-mrna_df <- prep_df_post_csv_read(moderna, "MRNA", "Pharma")
-
-mandt <- readr::read_csv("Original_Datasets/YahooFinance/MTB.csv", col_names = TRUE, show_col_types = FALSE)
-mtb_df <- prep_df_post_csv_read(mandt, "MTB", "Banking")
 
 nvidia <- readr::read_csv("Original_Datasets/YahooFinance/NVDA.csv", col_names = TRUE, show_col_types = FALSE)
 nvda_df <- prep_df_post_csv_read(nvidia, "NVDA", "Tech")
 
+meta <- readr::read_csv("Original_Datasets/YahooFinance/META.csv", col_names = TRUE, show_col_types = FALSE)
+meta_df <- prep_df_post_csv_read(meta, "META", "Tech")
+
+#Pharma
+jnj <- readr::read_csv("Original_Datasets/YahooFinance/JNJ.csv", col_names = TRUE, show_col_types = FALSE)
+jnj_df <- prep_df_post_csv_read(jnj, "JNJ", "Pharma")
+
+moderna <- readr::read_csv("Original_Datasets/YahooFinance/MRNA.csv", col_names = TRUE, show_col_types = FALSE)
+mrna_df <- prep_df_post_csv_read(moderna, "MRNA", "Pharma")
+
+abbvie <- readr::read_csv("Original_Datasets/YahooFinance/ABBV.csv", col_names = TRUE, show_col_types = FALSE)
+abbv_df <- prep_df_post_csv_read(abbvie, "ABBV", "Pharma")
+
+#Banking
+jpmorg <- readr::read_csv("Original_Datasets/YahooFinance/JPM.csv", col_names = TRUE, show_col_types = FALSE)
+jpm_df <- prep_df_post_csv_read(jpmorg, "JPM", "Banking")
+
+mandt <- readr::read_csv("Original_Datasets/YahooFinance/MTB.csv", col_names = TRUE, show_col_types = FALSE)
+mtb_df <- prep_df_post_csv_read(mandt, "MTB", "Banking")
+
+pnc <- readr::read_csv("Original_Datasets/YahooFinance/PNC.csv", col_names = TRUE, show_col_types = FALSE)
+pnc_df <- prep_df_post_csv_read(pnc, "PNC", "Banking")
+
+#Retail
 target <- readr::read_csv("Original_Datasets/YahooFinance/TGT.csv", col_names = TRUE, show_col_types = FALSE)
 tgt_df <- prep_df_post_csv_read(target, "TGT", "Retail")
-
 
 wmt <- readr::read_csv("Original_Datasets/YahooFinance/WMT.csv", col_names = TRUE, show_col_types = FALSE)
 wmt_df <- prep_df_post_csv_read(wmt, "WMT", "Retail")
 
-stock_df_list <- c(appl_df, jnj_df, jpm_df, mrna_df, mtb_df, nvda_df, tgt_df, wmt_df)
+costco <- readr::read_csv("Original_Datasets/YahooFinance/COST.csv", col_names = TRUE, show_col_types = FALSE)
+cost_df <- prep_df_post_csv_read(costco, "COST", "Retail")
+
+#Add to List
+stock_df_list <- c(appl_df, jnj_df, jpm_df, mrna_df, mtb_df, nvda_df, tgt_df, wmt_df, cost_df, pnc_df, abbv_df, meta_df)
 ```
 
 After that, we have a list of 8 dataframes that look like this.
