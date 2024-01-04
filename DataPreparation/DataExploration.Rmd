@@ -36,8 +36,9 @@ mtb_df <- prep_df_post_csv_read(mandt, "MTB", "Banking")
 nvidia <- readr::read_csv("Original_Datasets/YahooFinance/NVDA.csv", col_names = TRUE, show_col_types = FALSE)
 nvda_df <- prep_df_post_csv_read(nvidia, "NVDA", "Tech")
 
-target <- readr::read_csv("Original_Datasets/YahooFinance/JPM.csv", col_names = TRUE, show_col_types = FALSE)
+target <- readr::read_csv("Original_Datasets/YahooFinance/TGT.csv", col_names = TRUE, show_col_types = FALSE)
 tgt_df <- prep_df_post_csv_read(target, "TGT", "Retail")
+
 
 wmt <- readr::read_csv("Original_Datasets/YahooFinance/WMT.csv", col_names = TRUE, show_col_types = FALSE)
 wmt_df <- prep_df_post_csv_read(wmt, "WMT", "Retail")
@@ -47,7 +48,8 @@ stock_df_list <- c(appl_df, jnj_df, jpm_df, mrna_df, mtb_df, nvda_df, tgt_df, wm
 
 After that, we have a list of 8 dataframes that look like this.
 ```{r, show_apple}
-head(appl_df)
+head(target)
+head(tgt_df)
 ```
 
 ##Creating Individual Lines for Learning
@@ -56,28 +58,51 @@ I am now going to create dataframes where each line represents an 8 month period
 ```{r, create_learning_df}
 k_month_learning_df_from_adjusted <- function(df, k){
   
+  learn_df_rows <- nrow(df) - k - 1
+  
+  colnames_adj_percent <- paste0("Adj_Pct_Change", 1:k)
+  colnames_percent <- paste0("Pct_Change", 1:k)
+  colnames_vol <- paste0("Volume", 1:k)
+  
+  adj_perc_df <- data.frame(matrix(NA, nrow = 0, ncol = k, dimnames = list(NULL, colnames_adj_percent)))
+  perc_df <- data.frame(matrix(NA, nrow = 0, ncol = k, dimnames = list(NULL, colnames_percent)))
+  vol_df <- data.frame(matrix(NA, nrow = 0, ncol = k, dimnames = list(NULL, colnames_vol)))
+  
+  const_columns <- data.frame(
+    Ticker = df$Ticker[0],
+    Industry = df$Industry[0],
+    Actual_PerChange = numeric(),
+    Actual_AdjPerChange = numeric()
+  )
+  
+  
+  learning_df <- cbind(const_columns, adj_perc_df, perc_df, vol_df)
+  
   i <- 0
-  while(i+k+1 < nrow(df)){
+  while(i < learn_df_rows){
+    new_data <- data.frame(matrix(NA, nrow = 1, ncol = ncol(learning_df)))
+    colnames(new_data) = colnames(learning_df)
     
+    new_data$Ticker <- df$Ticker[1]
+    new_data$Industry <- df$Industry[1]
+    new_data$Actual_PerChange <- df$Pct_Change[i+k+1]
+    new_data$Actual_AdjPerChange <- df$Adj_Pct_Change[i+k+1]
     
+    for(j in 1:k){
+      volcol <- paste0("Volume",j)
+      new_data[volcol] <- df$Volume[i+j]
+      
+      pct_change_col <- paste0("Pct_Change",j)
+      new_data[pct_change_col] <- df$Pct_Change[i+j]
+      
+      adj_pct_change_col <- paste0("Adj_Pct_Change",j)
+      new_data[adj_pct_change_col] <- df$Adj_Pct_Change[i+j]
+    }
+    learning_df <- rbind(learning_df, new_data)
     
     i <- i+1
   }
   
-  colnames_adj_percent <- paste0("Adj_%_Change", 1:k)
-  colnames_percent <- paste0("%_Change", 1:k)
-  colnames_vol <- paste0("Volume", 1:k)
-  
-  adj_perc_df <- data.frame(matrix(NA, nrow = 1, ncol = k, dimnames = list(NULL, colnames_adj_percent)))
-  perc_df <- data.frame(matrix(NA, nrow = 1, ncol = k, dimnames = list(NULL, colnames_percent)))
-  vol_df <- data.frame(matrix(NA, nrow = 1, ncol = k, dimnames = list(NULL, colnames_vol)))
-  
-  const_columns <- data.frame(
-    Ticker = df$Ticker[1],
-    Industry = df$Industry[1]
-  )
-  
-  learning_df <- cbind(const_columns, adj_perc_df, perc_df, vol_df)
   return(learning_df)
 }
 ```
