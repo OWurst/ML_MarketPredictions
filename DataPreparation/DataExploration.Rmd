@@ -21,8 +21,7 @@ source("Data_Prep_Functions.r")
 source("Data_Viz_Functions.r")
 ```
 
-# Data Preparation:
-## Reading in Data:
+# Reading in Data:
 I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df.
 ```{r, create_df_list}
 # Tech
@@ -79,12 +78,12 @@ After that, we have a list of 12 dataframes that look like this.
 head(tgt_df)
 ```
 
-## Data Visualization:
+# Data Visualization:
 I will now take a look at some of the data I have read in to start to visualize some of  the trends.
 
-### Stock Price Changes by Industry:
+## Stock Price Changes by Industry:
 
-#### Tech Stocks:
+### Tech Stocks:
 ```{r, tech_stock_prices}
 df_list <- list(apple, meta, nvidia)
 names_list <- list("Apple", "Meta", "Nvidia")
@@ -117,7 +116,8 @@ industry <- "Tech"
 create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
 ```
 
-#### Banking Stocks
+
+### Banking Stocks
 ```{r, banking_stock_prices}
 df_list <- list(jpmorg, mandt, pnc)
 names_list <- list("JP Morgan", "M&T Bank", "PNC")
@@ -150,7 +150,8 @@ industry <- "Banking"
 create_industry_graphs(df_list, names_list, industry, "Histogram",adjusted = TRUE)
 ```
 
-#### Pharmaceutical Stocks
+
+### Pharmaceutical Stocks
 ```{r, pharma_stock_prices}
 df_list <- list(jnj, moderna, abbvie)
 names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
@@ -183,7 +184,8 @@ industry <- "Pharma"
 create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
 ```
 
-#### Retail Stocks
+
+### Retail Stocks
 ```{r, retail_stock_prices}
 df_list <- list(wmt, target, costco)
 names_list <- list("Walmart", "Target", "Costco")

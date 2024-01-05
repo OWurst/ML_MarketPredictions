@@ -385,10 +385,8 @@ some preliminary knowledge to inspire some model formation.</p>
 source(&quot;Data_Prep_Functions.r&quot;)
 source(&quot;Data_Viz_Functions.r&quot;)</code></pre>
 </div>
-<div id="data-preparation" class="section level1">
-<h1>Data Preparation:</h1>
-<div id="reading-in-data" class="section level2">
-<h2>Reading in Data:</h2>
+<div id="reading-in-data" class="section level1">
+<h1>Reading in Data:</h1>
 <p>I will start by reading the csv files for all of the data. I will add
 a column for ticker and industry to each df.</p>
 <pre class="r"><code># Tech
@@ -448,14 +446,14 @@ stock_df_list &lt;- list(
 ## 5    TGT   Retail 2019-05-01 140085400     -7.2694984  3.4061618
 ## 6    TGT   Retail 2019-06-01  93656300     -2.7691291  7.4565796</code></pre>
 </div>
-<div id="data-visualization" class="section level2">
-<h2>Data Visualization:</h2>
+<div id="data-visualization" class="section level1">
+<h1>Data Visualization:</h1>
 <p>I will now take a look at some of the data I have read in to start to
 visualize some of the trends.</p>
-<div id="stock-price-changes-by-industry" class="section level3">
-<h3>Stock Price Changes by Industry:</h3>
-<div id="tech-stocks" class="section level4">
-<h4>Tech Stocks:</h4>
+<div id="stock-price-changes-by-industry" class="section level2">
+<h2>Stock Price Changes by Industry:</h2>
+<div id="tech-stocks" class="section level3">
+<h3>Tech Stocks:</h3>
 <pre class="r"><code>df_list &lt;- list(apple, meta, nvidia)
 names_list &lt;- list(&quot;Apple&quot;, &quot;Meta&quot;, &quot;Nvidia&quot;)
 industry &lt;- &quot;Tech&quot;
@@ -505,8 +503,8 @@ create_industry_graphs(df_list, names_list, industry, &quot;Histogram&quot;, adj
 ## 3 3 (2-2,3-3) arrange      gtable[layout]
 ## 4 4 (1-1,1-3) arrange text[GRID.text.433]</code></pre>
 </div>
-<div id="banking-stocks" class="section level4">
-<h4>Banking Stocks</h4>
+<div id="banking-stocks" class="section level3">
+<h3>Banking Stocks</h3>
 <pre class="r"><code>df_list &lt;- list(jpmorg, mandt, pnc)
 names_list &lt;- list(&quot;JP Morgan&quot;, &quot;M&amp;T Bank&quot;, &quot;PNC&quot;)
 industry &lt;- &quot;Banking&quot;
@@ -556,8 +554,8 @@ create_industry_graphs(df_list, names_list, industry, &quot;Histogram&quot;,adju
 ## 3 3 (2-2,3-3) arrange      gtable[layout]
 ## 4 4 (1-1,1-3) arrange text[GRID.text.863]</code></pre>
 </div>
-<div id="pharmaceutical-stocks" class="section level4">
-<h4>Pharmaceutical Stocks</h4>
+<div id="pharmaceutical-stocks" class="section level3">
+<h3>Pharmaceutical Stocks</h3>
 <pre class="r"><code>df_list &lt;- list(jnj, moderna, abbvie)
 names_list &lt;- list(&quot;Johnson and Johnson&quot;, &quot;Moderna&quot;, &quot;AbbVie&quot;)
 industry &lt;- &quot;Pharma&quot;
@@ -607,8 +605,8 @@ create_industry_graphs(df_list, names_list, industry, &quot;Histogram&quot;, adj
 ## 3 3 (2-2,3-3) arrange       gtable[layout]
 ## 4 4 (1-1,1-3) arrange text[GRID.text.1293]</code></pre>
 </div>
-<div id="retail-stocks" class="section level4">
-<h4>Retail Stocks</h4>
+<div id="retail-stocks" class="section level3">
+<h3>Retail Stocks</h3>
 <pre class="r"><code>df_list &lt;- list(wmt, target, costco)
 names_list &lt;- list(&quot;Walmart&quot;, &quot;Target&quot;, &quot;Costco&quot;)
 industry &lt;- &quot;Retail&quot;
@@ -657,7 +655,6 @@ create_industry_graphs(df_list, names_list, industry, &quot;Histogram&quot;, adj
 ## 2 2 (2-2,2-2) arrange       gtable[layout]
 ## 3 3 (2-2,3-3) arrange       gtable[layout]
 ## 4 4 (1-1,1-3) arrange text[GRID.text.1723]</code></pre>
-</div>
 </div>
 </div>
 <div id="data-transformation" class="section level2">
