@@ -1,5 +1,5 @@
 ---
-title: "CS 2075 Spring 2023 Final Project: Part 3: Classification"
+title: "Data Exploration"
 author: "Owen Wurst"
 date: "Started January 3rd, 2024"
 output: html_document
@@ -9,76 +9,171 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+The first step of this project is to read in the yahoo finance data and transform it into data that I know how to run ml algorithms on, as well as do some exploratory data analysis and visualization so I have some preliminary knowledge to inspire some model formation.
+
+## Libaries and Imports:
 ```{r, imports}
 library(tidyverse)
+library(gridExtra)
 source("Data_Prep_Functions.r")
 ```
 
-#Data Preparation:
-##Reading in Data:
+# Data Preparation:
+## Reading in Data:
 I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df.
 ```{r, create_df_list}
-#Tech
-apple <- readr::read_csv("Original_Datasets/YahooFinance/AAPL.csv", col_names = TRUE, show_col_types = FALSE)
+# Tech
+apple <- readr::read_csv(
+  "Original_Datasets/YahooFinance/AAPL.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 appl_df <- prep_df_post_csv_read(apple, "APPL", "Tech")
 
-nvidia <- readr::read_csv("Original_Datasets/YahooFinance/NVDA.csv", col_names = TRUE, show_col_types = FALSE)
+nvidia <- readr::read_csv(
+  "Original_Datasets/YahooFinance/NVDA.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 nvda_df <- prep_df_post_csv_read(nvidia, "NVDA", "Tech")
 
-meta <- readr::read_csv("Original_Datasets/YahooFinance/META.csv", col_names = TRUE, show_col_types = FALSE)
+meta <- readr::read_csv(
+  "Original_Datasets/YahooFinance/META.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 meta_df <- prep_df_post_csv_read(meta, "META", "Tech")
 
-#Pharma
-jnj <- readr::read_csv("Original_Datasets/YahooFinance/JNJ.csv", col_names = TRUE, show_col_types = FALSE)
+# Pharma
+jnj <- readr::read_csv(
+  "Original_Datasets/YahooFinance/JNJ.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 jnj_df <- prep_df_post_csv_read(jnj, "JNJ", "Pharma")
 
-moderna <- readr::read_csv("Original_Datasets/YahooFinance/MRNA.csv", col_names = TRUE, show_col_types = FALSE)
+moderna <- readr::read_csv(
+  "Original_Datasets/YahooFinance/MRNA.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 mrna_df <- prep_df_post_csv_read(moderna, "MRNA", "Pharma")
 
-abbvie <- readr::read_csv("Original_Datasets/YahooFinance/ABBV.csv", col_names = TRUE, show_col_types = FALSE)
+abbvie <- readr::read_csv(
+  "Original_Datasets/YahooFinance/ABBV.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 abbv_df <- prep_df_post_csv_read(abbvie, "ABBV", "Pharma")
 
-#Banking
-jpmorg <- readr::read_csv("Original_Datasets/YahooFinance/JPM.csv", col_names = TRUE, show_col_types = FALSE)
+# Banking
+jpmorg <- readr::read_csv(
+  "Original_Datasets/YahooFinance/JPM.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 jpm_df <- prep_df_post_csv_read(jpmorg, "JPM", "Banking")
 
-mandt <- readr::read_csv("Original_Datasets/YahooFinance/MTB.csv", col_names = TRUE, show_col_types = FALSE)
+mandt <- readr::read_csv(
+  "Original_Datasets/YahooFinance/MTB.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 mtb_df <- prep_df_post_csv_read(mandt, "MTB", "Banking")
 
-pnc <- readr::read_csv("Original_Datasets/YahooFinance/PNC.csv", col_names = TRUE, show_col_types = FALSE)
+pnc <- readr::read_csv(
+  "Original_Datasets/YahooFinance/PNC.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 pnc_df <- prep_df_post_csv_read(pnc, "PNC", "Banking")
 
-#Retail
-target <- readr::read_csv("Original_Datasets/YahooFinance/TGT.csv", col_names = TRUE, show_col_types = FALSE)
+# Retail
+target <- readr::read_csv(
+  "Original_Datasets/YahooFinance/TGT.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 tgt_df <- prep_df_post_csv_read(target, "TGT", "Retail")
 
-wmt <- readr::read_csv("Original_Datasets/YahooFinance/WMT.csv", col_names = TRUE, show_col_types = FALSE)
+wmt <- readr::read_csv(
+  "Original_Datasets/YahooFinance/WMT.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 wmt_df <- prep_df_post_csv_read(wmt, "WMT", "Retail")
 
-costco <- readr::read_csv("Original_Datasets/YahooFinance/COST.csv", col_names = TRUE, show_col_types = FALSE)
+costco <- readr::read_csv(
+  "Original_Datasets/YahooFinance/COST.csv",
+  col_names = TRUE,
+  show_col_types = FALSE
+)
 cost_df <- prep_df_post_csv_read(costco, "COST", "Retail")
 
-#Add to List
-stock_df_list <- list(appl_df, jnj_df, jpm_df, mrna_df, mtb_df, nvda_df, tgt_df, wmt_df, cost_df, pnc_df, abbv_df, meta_df)
+# Add to List
+stock_df_list <- list(
+  appl_df, nvda_df, meta_df,
+  jnj_df, mrna_df, abbv_df,
+  jpm_df, mtb_df, pnc_df,
+  tgt_df, wmt_df, cost_df
+)
 ```
 
-After that, we have a list of 8 dataframes that look like this.
+After that, we have a list of 12 dataframes that look like this.
 ```{r, show_apple}
 head(target)
 head(tgt_df)
 ```
 
-##Creating Individual Lines for Learning
-I am now going to create dataframes where each line represents an 8 month period of changes for every line that I can in these dateframes.
+## Data Visualization:
 
-```{r, create_learning_df}
-full_learning_df <- make_full_learning_df(stock_df_list, 8)
-head(full_learning_df)
+## Data Transformation:
+I am now going to create dataframes where each line represents an 8 month period of changes for every line that I can in these dateframes. I will save this as a csv to be used in the actual training dataframe
+```{r, create_learning_df_8}
+full_learning_df_8_months <- make_full_learning_df(stock_df_list, 8)
+write.csv(
+  full_learning_df_8_months,
+  file = "PriceChangeByPrevious8Months_Training.csv",
+  row.names = FALSE
+)
 ```
 
-```{r, save_PriceChangeByPrevious8Months_Training.csv}
-write.csv("PriceChangeByPrevious8Months_Training.csv", file = file_path, row.names = FALSE)
+6 Month DF
+```{r, create_learning_df_6}
+full_learning_df_6_months <- make_full_learning_df(stock_df_list, 6)
+write.csv(
+  full_learning_df_6_months,
+  file = "PriceChangeByPrevious6Months_Training.csv",
+  row.names = FALSE
+)
 ```
 
+12 Month DF:
+```{r, create_learning_df_12}
+full_learning_df_12_months <- make_full_learning_df(stock_df_list, 12)
+write.csv(
+  full_learning_df_12_months,
+  file = "PriceChangeByPrevious12Months_Training.csv",
+  row.names = FALSE
+)
+```
 
+4 Month DF:
+```{r, create_learning_df_4}
+full_learning_df_4_months <- make_full_learning_df(stock_df_list, 4)
+write.csv(
+  full_learning_df_4_months,
+  file = "PriceChangeByPrevious4Months_Training.csv",
+  row.names = FALSE
+)
+```
 
+10 Month DF:
+```{r, create_learning_df_10}
+full_learning_df_10_months <- make_full_learning_df(stock_df_list, 10)
+write.csv(
+  full_learning_df_10_months,
+  file = "PriceChangeByPrevious10Months_Training.csv",
+  row.names = FALSE
+)
+```
