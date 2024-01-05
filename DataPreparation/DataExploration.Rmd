@@ -76,7 +76,9 @@ full_learning_df <- make_full_learning_df(stock_df_list, 8)
 head(full_learning_df)
 ```
 
-
+```{r, save_PriceChangeByPrevious8Months_Training.csv}
+write.csv("PriceChangeByPrevious8Months_Training.csv", file = file_path, row.names = FALSE)
+```
 
 
 
