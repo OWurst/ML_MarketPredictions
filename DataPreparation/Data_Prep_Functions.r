@@ -2,6 +2,14 @@
 #some are likely to be rather verbose, so I do not want them
 #to all be in the Rmd file
 
+read <- function(file){
+  readr::read_csv(
+    file,
+    col_names = TRUE,
+    show_col_types = FALSE
+  )
+}
+
 #     Function to prep data immediately after reading in csv,
 #calculate percent changes, include volume, ticker, industry, date.
 prep_df_post_csv_read <- function(df, ticker, industry) {

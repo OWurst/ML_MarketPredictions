@@ -26,91 +26,43 @@ source("Data_Viz_Functions.r")
 I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df.
 ```{r, create_df_list}
 # Tech
-apple <- readr::read_csv(
-  "Original_Datasets/YahooFinance/AAPL.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+apple <- read("Original_Datasets/YahooFinance/AAPL.csv")
 appl_df <- prep_df_post_csv_read(apple, "APPL", "Tech")
 
-nvidia <- readr::read_csv(
-  "Original_Datasets/YahooFinance/NVDA.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+nvidia <- read("Original_Datasets/YahooFinance/NVDA.csv")
 nvda_df <- prep_df_post_csv_read(nvidia, "NVDA", "Tech")
 
-meta <- readr::read_csv(
-  "Original_Datasets/YahooFinance/META.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+meta <- read(  "Original_Datasets/YahooFinance/META.csv")
 meta_df <- prep_df_post_csv_read(meta, "META", "Tech")
 
 # Pharma
-jnj <- readr::read_csv(
-  "Original_Datasets/YahooFinance/JNJ.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+jnj <- read("Original_Datasets/YahooFinance/JNJ.csv")
 jnj_df <- prep_df_post_csv_read(jnj, "JNJ", "Pharma")
 
-moderna <- readr::read_csv(
-  "Original_Datasets/YahooFinance/MRNA.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+moderna <- read("Original_Datasets/YahooFinance/MRNA.csv")
 mrna_df <- prep_df_post_csv_read(moderna, "MRNA", "Pharma")
 
-abbvie <- readr::read_csv(
-  "Original_Datasets/YahooFinance/ABBV.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+abbvie <- read("Original_Datasets/YahooFinance/ABBV.csv")
 abbv_df <- prep_df_post_csv_read(abbvie, "ABBV", "Pharma")
 
 # Banking
-jpmorg <- readr::read_csv(
-  "Original_Datasets/YahooFinance/JPM.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+jpmorg <- read("Original_Datasets/YahooFinance/JPM.csv")
 jpm_df <- prep_df_post_csv_read(jpmorg, "JPM", "Banking")
 
-mandt <- readr::read_csv(
-  "Original_Datasets/YahooFinance/MTB.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+mandt <- read("Original_Datasets/YahooFinance/MTB.csv")
 mtb_df <- prep_df_post_csv_read(mandt, "MTB", "Banking")
 
-pnc <- readr::read_csv(
-  "Original_Datasets/YahooFinance/PNC.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+pnc <- read("Original_Datasets/YahooFinance/PNC.csv")
 pnc_df <- prep_df_post_csv_read(pnc, "PNC", "Banking")
 
 # Retail
-target <- readr::read_csv(
-  "Original_Datasets/YahooFinance/TGT.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+target <- read("Original_Datasets/YahooFinance/TGT.csv")
 tgt_df <- prep_df_post_csv_read(target, "TGT", "Retail")
 
-wmt <- readr::read_csv(
-  "Original_Datasets/YahooFinance/WMT.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+wmt <- read("Original_Datasets/YahooFinance/WMT.csv")
 wmt_df <- prep_df_post_csv_read(wmt, "WMT", "Retail")
 
-costco <- readr::read_csv(
-  "Original_Datasets/YahooFinance/COST.csv",
-  col_names = TRUE,
-  show_col_types = FALSE
-)
+costco <- read("Original_Datasets/YahooFinance/COST.csv")
 cost_df <- prep_df_post_csv_read(costco, "COST", "Retail")
 
 # Add to List
@@ -123,13 +75,14 @@ stock_df_list <- list(
 ```
 
 After that, we have a list of 12 dataframes that look like this.
-```{r, show_apple}
-head(target)
+```{r, show_target}
 head(tgt_df)
 ```
 
 ## Data Visualization:
 I will now take a look at some of the data I have read in to start to visualize some of  the trends.
+
+### Stock Price Changes by Industry:
 
 #### Tech Stocks:
 ```{r, tech_stock_prices}
@@ -146,6 +99,22 @@ names_list <- list("Apple", "Meta", "Nvidia")
 industry <- "Tech"
 
 create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
+```
+
+```{r, tech_stock_prices_hist}
+df_list <- list(appl_df, meta_df, nvda_df)
+names_list <- list("Apple", "Meta", "Nvidia")
+industry <- "Tech"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram")
+```
+
+```{r, adjusted_tech_stock_prices_hist}
+df_list <- list(appl_df, meta_df, nvda_df)
+names_list <- list("Apple", "Meta", "Nvidia")
+industry <- "Tech"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
 ```
 
 #### Banking Stocks
@@ -165,6 +134,22 @@ industry <- "Banking"
 create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
 ```
 
+```{r, banking_stock_prices_hist}
+df_list <- list(jpm_df, mtb_df, pnc_df)
+names_list <- list("JP Morgan", "M&T Bank", "PNC")
+industry <- "Banking"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram")
+```
+
+```{r, adjusted_banking_stock_prices_hist}
+df_list <- list(jpm_df, mtb_df, pnc_df)
+names_list <- list("JP Morgan", "M&T Bank", "PNC")
+industry <- "Banking"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram",adjusted = TRUE)
+```
+
 #### Pharmaceutical Stocks
 ```{r, pharma_stock_prices}
 df_list <- list(jnj, moderna, abbvie)
@@ -182,6 +167,22 @@ industry <- "Pharma"
 create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
 ```
 
+```{r, tech_stock_price_changes_hist}
+df_list <- list(jnj_df, mrna_df, abbv_df)
+names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
+industry <- "Pharma"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram")
+```
+
+```{r, adjusted_tech_stock_price_changes_hist}
+df_list <- list(jnj_df, mrna_df, abbv_df)
+names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
+industry <- "Pharma"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
+```
+
 #### Retail Stocks
 ```{r, retail_stock_prices}
 df_list <- list(wmt, target, costco)
@@ -197,6 +198,22 @@ names_list <- list("Walmart", "Target", "Costco")
 industry <- "Retail"
 
 create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
+```
+
+```{r, retail_stock_price_changes_hist}
+df_list <- list(wmt_df, tgt_df, cost_df)
+names_list <- list("Walmart", "Target", "Costco")
+industry <- "Retail"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram")
+```
+
+```{r, adjusted_retail_stock_price_changes_hist}
+df_list <- list(wmt_df, tgt_df, cost_df)
+names_list <- list("Walmart", "Target", "Costco")
+industry <- "Retail"
+
+create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
 ```
 
 ## Data Transformation:
