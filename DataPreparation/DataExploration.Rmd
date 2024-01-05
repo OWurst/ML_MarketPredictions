@@ -137,7 +137,15 @@ df_list <- list(apple, meta, nvidia)
 names_list <- list("Apple", "Meta", "Nvidia")
 industry <- "Tech"
 
-create_industry_graphs(df_list, names_list, industry)
+create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+```
+
+```{r, adjusted_tech_stock_prices}
+df_list <- list(apple, meta, nvidia)
+names_list <- list("Apple", "Meta", "Nvidia")
+industry <- "Tech"
+
+create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
 ```
 
 #### Banking Stocks
@@ -146,7 +154,15 @@ df_list <- list(jpmorg, mandt, pnc)
 names_list <- list("JP Morgan", "M&T Bank", "PNC")
 industry <- "Banking"
 
-create_industry_graphs(df_list, names_list, industry)
+create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+```
+
+```{r, adjusted_banking_stock_prices}
+df_list <- list(jpmorg, mandt, pnc)
+names_list <- list("JP Morgan", "M&T Bank", "PNC")
+industry <- "Banking"
+
+create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
 ```
 
 #### Pharmaceutical Stocks
@@ -155,7 +171,15 @@ df_list <- list(jnj, moderna, abbvie)
 names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
 industry <- "Pharma"
 
-create_industry_graphs(df_list, names_list, industry)
+create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+```
+
+```{r, adjusted_pharma_stock_prices}
+df_list <- list(jnj, moderna, abbvie)
+names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
+industry <- "Pharma"
+
+create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
 ```
 
 #### Retail Stocks
@@ -164,7 +188,15 @@ df_list <- list(wmt, target, costco)
 names_list <- list("Walmart", "Target", "Costco")
 industry <- "Retail"
 
-create_industry_graphs(df_list, names_list, industry)
+create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+```
+
+```{r, adjusted_retail_stock_prices}
+df_list <- list(wmt, target, costco)
+names_list <- list("Walmart", "Target", "Costco")
+industry <- "Retail"
+
+create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
 ```
 
 ## Data Transformation:
