@@ -15,7 +15,10 @@ The first step of this project is to read in the yahoo finance data and transfor
 ```{r, imports}
 library(tidyverse)
 library(gridExtra)
+library(grid)
+
 source("Data_Prep_Functions.r")
+source("Data_Viz_Functions.r")
 ```
 
 # Data Preparation:
@@ -126,6 +129,43 @@ head(tgt_df)
 ```
 
 ## Data Visualization:
+I will now take a look at some of the data I have read in to start to visualize some of  the trends.
+
+#### Tech Stocks:
+```{r, tech_stock_prices}
+df_list <- list(apple, meta, nvidia)
+names_list <- list("Apple", "Meta", "Nvidia")
+industry <- "Tech"
+
+create_industry_graphs(df_list, names_list, industry)
+```
+
+#### Banking Stocks
+```{r, banking_stock_prices}
+df_list <- list(jpmorg, mandt, pnc)
+names_list <- list("JP Morgan", "M&T Bank", "PNC")
+industry <- "Banking"
+
+create_industry_graphs(df_list, names_list, industry)
+```
+
+#### Pharmaceutical Stocks
+```{r, pharma_stock_prices}
+df_list <- list(jnj, moderna, abbvie)
+names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
+industry <- "Pharma"
+
+create_industry_graphs(df_list, names_list, industry)
+```
+
+#### Retail Stocks
+```{r, retail_stock_prices}
+df_list <- list(wmt, target, costco)
+names_list <- list("Walmart", "Target", "Costco")
+industry <- "Retail"
+
+create_industry_graphs(df_list, names_list, industry)
+```
 
 ## Data Transformation:
 I am now going to create dataframes where each line represents an 8 month period of changes for every line that I can in these dateframes. I will save this as a csv to be used in the actual training dataframe
