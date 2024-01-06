@@ -22,7 +22,7 @@ source("Data_Viz_Functions.r")
 ```
 
 # Reading in Data:
-I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df. Volume does not store actual transaction volume but instead, volume above average.
+I will start by reading the csv files for all of the data. I will add a column for ticker and industry to each df. Volume does not store actual transaction volume but instead, volume above average %.
 ```{r, create_df_list}
 # Tech
 apple <- read("Original_Datasets/YahooFinance/AAPL.csv")
@@ -31,7 +31,7 @@ appl_df <- prep_df_post_csv_read(apple, "APPL", "Tech")
 nvidia <- read("Original_Datasets/YahooFinance/NVDA.csv")
 nvda_df <- prep_df_post_csv_read(nvidia, "NVDA", "Tech")
 
-meta <- read(  "Original_Datasets/YahooFinance/META.csv")
+meta <- read("Original_Datasets/YahooFinance/META.csv")
 meta_df <- prep_df_post_csv_read(meta, "META", "Tech")
 
 # Pharma
@@ -91,7 +91,7 @@ df_list <- list(apple, meta, nvidia)
 names_list <- list("Apple", "Meta", "Nvidia")
 industry <- "Tech"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+invisible(create_industry_graphs(df_list, names_list, industry, "Line_Graph"))
 ```
 
 ```{r, adjusted_tech_stock_prices}
@@ -99,7 +99,11 @@ df_list <- list(apple, meta, nvidia)
 names_list <- list("Apple", "Meta", "Nvidia")
 industry <- "Tech"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph", adjusted = TRUE
+  )
+)
 ```
 
 ```{r, tech_stock_prices_hist}
@@ -107,7 +111,11 @@ df_list <- list(appl_df, meta_df, nvda_df)
 names_list <- list("Apple", "Meta", "Nvidia")
 industry <- "Tech"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram"
+  )
+)
 ```
 
 ```{r, adjusted_tech_stock_prices_hist}
@@ -115,7 +123,11 @@ df_list <- list(appl_df, meta_df, nvda_df)
 names_list <- list("Apple", "Meta", "Nvidia")
 industry <- "Tech"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram", adjusted = TRUE
+  )
+)
 ```
 
 
@@ -125,7 +137,11 @@ df_list <- list(jpmorg, mandt, pnc)
 names_list <- list("JP Morgan", "M&T Bank", "PNC")
 industry <- "Banking"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph"
+  )
+)
 ```
 
 ```{r, adjusted_banking_stock_prices}
@@ -133,7 +149,11 @@ df_list <- list(jpmorg, mandt, pnc)
 names_list <- list("JP Morgan", "M&T Bank", "PNC")
 industry <- "Banking"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph", adjusted = TRUE
+  )
+)
 ```
 
 ```{r, banking_stock_prices_hist}
@@ -141,7 +161,11 @@ df_list <- list(jpm_df, mtb_df, pnc_df)
 names_list <- list("JP Morgan", "M&T Bank", "PNC")
 industry <- "Banking"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram"
+  )
+)
 ```
 
 ```{r, adjusted_banking_stock_prices_hist}
@@ -149,7 +173,11 @@ df_list <- list(jpm_df, mtb_df, pnc_df)
 names_list <- list("JP Morgan", "M&T Bank", "PNC")
 industry <- "Banking"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram",adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram", adjusted = TRUE
+  )
+)
 ```
 
 
@@ -159,7 +187,11 @@ df_list <- list(jnj, moderna, abbvie)
 names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
 industry <- "Pharma"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph"
+  )
+)
 ```
 
 ```{r, adjusted_pharma_stock_prices}
@@ -167,7 +199,11 @@ df_list <- list(jnj, moderna, abbvie)
 names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
 industry <- "Pharma"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph", adjusted = TRUE
+  )
+)
 ```
 
 ```{r, tech_stock_price_changes_hist}
@@ -175,7 +211,11 @@ df_list <- list(jnj_df, mrna_df, abbv_df)
 names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
 industry <- "Pharma"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram"
+  )
+)
 ```
 
 ```{r, adjusted_tech_stock_price_changes_hist}
@@ -183,7 +223,11 @@ df_list <- list(jnj_df, mrna_df, abbv_df)
 names_list <- list("Johnson and Johnson", "Moderna", "AbbVie")
 industry <- "Pharma"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram", adjusted = TRUE
+  )
+)
 ```
 
 
@@ -193,7 +237,11 @@ df_list <- list(wmt, target, costco)
 names_list <- list("Walmart", "Target", "Costco")
 industry <- "Retail"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph"
+  )
+)
 ```
 
 ```{r, adjusted_retail_stock_prices}
@@ -201,7 +249,11 @@ df_list <- list(wmt, target, costco)
 names_list <- list("Walmart", "Target", "Costco")
 industry <- "Retail"
 
-create_industry_graphs(df_list, names_list, industry, "Line_Graph", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Line_Graph", adjusted = TRUE
+  )
+)
 ```
 
 ```{r, retail_stock_price_changes_hist}
@@ -209,25 +261,43 @@ df_list <- list(wmt_df, tgt_df, cost_df)
 names_list <- list("Walmart", "Target", "Costco")
 industry <- "Retail"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram")
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram"
+  )
+)
 ```
 
-```{r, adjusted_retail_stock_price_changes_hist}
+```{r, adjusted_retail_stock_price_changes_hist, }
 df_list <- list(wmt_df, tgt_df, cost_df)
 names_list <- list("Walmart", "Target", "Costco")
 industry <- "Retail"
 
-create_industry_graphs(df_list, names_list, industry, "Histogram", adjusted = TRUE)
+invisible(
+  create_industry_graphs(
+    df_list, names_list, industry, "Histogram", adjusted = TRUE
+  )
+)
 ```
 
 ## Overall Stock Price Changes:
 
 ```{r, make_overall_hist}
-create_single_stock_histogram(combined_df, "Overall Monthly Percent Change Distribution", "1 Month Percent Change", FALSE)
+create_single_stock_histogram(
+  combined_df,
+  "Overall Monthly Percent Change Distribution",
+  "1 Month Percent Change",
+  FALSE
+)
 ```
 
 ```{r, make_overall_hist_adjusted}
-create_single_stock_histogram(combined_df, "Overall Monthly Adjusted Percent Change Distribution", "1 Month Adjusted Percent Change", TRUE)
+create_single_stock_histogram(
+  combined_df,
+  "Overall Monthly Adjusted Percent Change Distribution",
+  "1 Month Adjusted Percent Change",
+  TRUE
+)
 ```
 
 ```{r, volume_pct_change_dotplot}
@@ -256,12 +326,16 @@ ggplot(combined_df, aes(x = Pct_Change, y = Volume)) +
 ```
 
 ```{r, volume_adj_pct_change_dotplot_industrt}
+title <- "Monthly Transaction Volume vs Adjusted Monthly Pct Change by Industry"
+
 ggplot(combined_df, aes(x = Adj_Pct_Change, y = Volume)) +
   geom_point(shape = 3, size = .75, color = "blue") +
   facet_wrap(~Industry) +
-  labs(title = "Monthly Transaction Above Average vs Adjusted Monthly Pct Change by Industry",
-       y = "Number of Transactions",
-       x = "Stock Price Adjusted Pct Change")
+  labs(
+    title = title,
+    y = "Number of Transactions",
+    x = "Stock Price Adjusted Pct Change"
+  )
 ```
 
 # Data Transformation:
@@ -275,7 +349,7 @@ write.csv(
 )
 ```
 
-6 Month DF
+6 Month DF:
 ```{r, create_learning_df_6}
 full_learning_df_6_months <- make_full_learning_df(stock_df_list, 6)
 write.csv(
