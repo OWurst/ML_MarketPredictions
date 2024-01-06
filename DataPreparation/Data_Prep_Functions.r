@@ -2,7 +2,7 @@
 #some are likely to be rather verbose, so I do not want them
 #to all be in the Rmd file
 
-read <- function(file){
+read <- function(file) {
   readr::read_csv(
     file,
     col_names = TRUE,
@@ -13,13 +13,13 @@ read <- function(file){
 #     Function to prep data immediately after reading in csv,
 #calculate percent changes, include volume, ticker, industry, date.
 prep_df_post_csv_read <- function(df, ticker, industry) {
-  vol_average = mean(df$Volume)
-  
+  vol_average <- mean(df$Volume)
+
   return_df <- data.frame(
     Ticker = ticker,
     Industry = industry,
     Date = df$Date,
-    Volume = df$Volume - vol_average,
+    Volume = (df$Volume - vol_average) / vol_average,
     Adj_Pct_Change = ((df$"Adj Close" - df$Open) / df$Open * 100),
     Pct_Change = ((df$Close - df$Open) / df$Open * 100)
   )
