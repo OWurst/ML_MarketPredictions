@@ -1,0 +1,30 @@
+---
+title: "Monthly Stock Price Percent Change Predictions"
+author: "Owen Wurst"
+date: "Started January 6th, 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The second step of this project is to train some models to predict stock price percent change for a month based on previous stock price percent changes and previous volume data.
+
+## Libaries and Imports:
+```{r, imports}
+library(tidyverse)
+library(caret)
+
+source("ModelTrainingFunctions.r")
+```
+## Training Set Reads
+```{r, read_4_month}
+month4_df <- read("training_dfs/PriceChangeByPrevious4Months_Training.csv")
+head(month4_df)
+train_df_4month <- drop_unwanted_pct_data(month4_df)
+head(train_df_4month)
+
+```
+
+
