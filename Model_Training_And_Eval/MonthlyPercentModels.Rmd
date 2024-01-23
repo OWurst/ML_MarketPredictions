@@ -20,11 +20,59 @@ source("ModelTrainingFunctions.r")
 ```
 ## Training Set Reads
 ```{r, read_4_month}
-month4_df <- read("training_dfs/PriceChangeByPrevious4Months_Training.csv")
-head(month4_df)
-train_df_4month <- drop_unwanted_pct_data(month4_df)
-head(train_df_4month)
+files_list <- list(
+  month4_df = "training_dfs/PriceChangeByPrevious4Months_Training.csv",
+  month6_df = "training_dfs/PriceChangeByPrevious6Months_Training.csv",
+  month8_df = "training_dfs/PriceChangeByPrevious8Months_Training.csv",
+  month10_df = "training_dfs/PriceChangeByPrevious10Months_Training.csv",
+  month12_df = "training_dfs/PriceChangeByPrevious12Months_Training.csv"
+)
+
+dfs_list = prep_df_list(files_list)
+
+data_4month <- dfs_list$month4_df
+data_6month <- dfs_list$month6_df
+data_8month <- dfs_list$month8_df
+data_10month <- dfs_list$month10_df
+data_12month <- dfs_list$month12_df
+```
+
+## Training 8 Month Models:
+I am going to take a deep dive on the 8 month dataset since it is my middle dataset and should hopefully help me figure out some strong trends and gauge variable importance, as well as see what types of models are performing best. In general, my plan is to use different variable combinations between all variables except specific stock ticker because I think that specific categorical variable will lead to some strong overfitting on the training data particularly with the more sophisticated models.
+
+### Linear Models:
+
+The first model I am going to train is a simple additive model of the pct change features hoping that we can find a useful relationship between these continuous variables with the following formula where Beta is the scalar associated with the slope of a specific variable:
+$$
+\hat{\mathrm{PctChange}} = \sum_{n}^{8} \beta_n \cdot \mathrm{PctChange}_n
+$$
+
+```{r, lm_pct_add}
 
 ```
+
+The second linear model I am going to train is an additive model like the above model with the addition of the pct above average transaction volumes. The formula below shows the thinking here where once again, beta is the "slope" for a given variable.
+
+$$
+\hat{\mathrm{PctChange}} = \sum_{n}^{8} \beta_n \cdot \mathrm{PctChange}_n + \sum_{n}^{8} \beta_{n+8} \cdot \mathrm{Volume}_n
+$$
+
+```{r, lm_pct_vol_add}
+
+```
+
+Finally I will train the above two models but I will add in the categorical Industry variable.
+
+```{r, lm_pct_add_industry}
+
+```
+
+```{r, lm_pct_vol_add_industry}
+
+```
+
+
+
+
 
 
